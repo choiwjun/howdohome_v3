@@ -24,7 +24,12 @@ import {
   LoginPage,
   DashboardPage,
   ConsultationsPage,
-  ConsultationDetailPage
+  ConsultationDetailPage,
+  NewsPage as AdminNewsPage,
+  JournalsPage as AdminJournalsPage,
+  GalleryPage as AdminGalleryPage,
+  FAQsPage,
+  SettingsPage
 } from './admin';
 
 // Layout wrapper for main site
@@ -69,14 +74,14 @@ export default function App() {
             <Route index element={<DashboardPage />} />
             <Route path="consultations" element={<ConsultationsPage />} />
             <Route path="consultations/:id" element={<ConsultationDetailPage />} />
-            <Route path="news" element={<ComingSoon title="소식 관리" />} />
-            <Route path="journals" element={<ComingSoon title="현장일지 관리" />} />
-            <Route path="gallery" element={<ComingSoon title="갤러리 관리" />} />
+            <Route path="news" element={<AdminNewsPage />} />
+            <Route path="journals" element={<AdminJournalsPage />} />
+            <Route path="gallery" element={<AdminGalleryPage />} />
             <Route path="portfolios" element={<ComingSoon title="지명원 관리" />} />
             <Route path="process" element={<ComingSoon title="프로세스 관리" />} />
-            <Route path="faqs" element={<ComingSoon title="FAQ 관리" />} />
+            <Route path="faqs" element={<FAQsPage />} />
             <Route path="media" element={<ComingSoon title="미디어 라이브러리" />} />
-            <Route path="settings" element={<ComingSoon title="사이트 설정" />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
           
           {/* Main Site Routes */}
