@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Phone, Mail, User, Calendar, Clock, MessageSquare, Briefcase, DollarSign, CheckCircle2, Video, MessageCircle, Home } from 'lucide-react';
+import { Phone, Mail, User, Calendar, Clock, MessageSquare, Briefcase, DollarSign, CheckCircle2, Video, MessageCircle, Home, Loader2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { supabase } from '../lib/supabase';
 
 export function ConsultationPage() {
   const [formData, setFormData] = useState({
@@ -15,10 +16,56 @@ export function ConsultationPage() {
     preferredTime: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const { error } = await supabase
+        .from('consultations')
+        .insert({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          consultation_type: formData.consultationType,
+          project_type: formData.projectType,
+          area: formData.area || null,
+          budget: formData.budget || null,
+          preferred_date: formData.preferredDate || null,
+          preferred_time: formData.preferredTime || null,
+          message: formData.message || null,
+          status: 'new'
+        });
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw new Error('상담 신청 중 오류가 발생했습니다.');
+      }
+
+      setSubmitSuccess(true);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        consultationType: '',
+        projectType: '',
+        area: '',
+        budget: '',
+        preferredDate: '',
+        preferredTime: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Submit error:', error);
+      setSubmitError(error instanceof Error ? error.message : '상담 신청 중 오류가 발생했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -406,12 +453,43 @@ export function ConsultationPage() {
                 </label>
               </div>
 
+              {/* 에러 메시지 */}
+              {submitError && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+                  {submitError}
+                </div>
+              )}
+
+              {/* 성공 메시지 */}
+              {submitSuccess && (
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={20} />
+                    <span className="font-medium">상담 신청이 완료되었습니다!</span>
+                  </div>
+                  <p className="mt-1 text-sm">담당자가 빠른 시일 내에 연락드리겠습니다.</p>
+                </div>
+              )}
+
               {/* 제출 버튼 */}
               <button
                 type="submit"
-                className="w-full bg-gray-900 text-white py-4 rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+                disabled={isSubmitting || submitSuccess}
+                className="w-full bg-gray-900 text-white py-4 rounded-lg hover:bg-gray-800 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                상담 신청하기
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    접수 중...
+                  </>
+                ) : submitSuccess ? (
+                  <>
+                    <CheckCircle2 size={20} />
+                    신청 완료
+                  </>
+                ) : (
+                  '상담 신청하기'
+                )}
               </button>
             </div>
           </form>
