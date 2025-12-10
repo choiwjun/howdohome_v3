@@ -1,3 +1,6 @@
+// Admin CSS - must be imported first
+import './admin.css';
+
 // Admin exports
 export { AuthProvider } from './hooks/useAuth';
 export { AdminLayout } from './components/AdminLayout';
