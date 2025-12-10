@@ -190,3 +190,101 @@
 html {
   font-size: var(--font-size);
 }
+
+/* Admin Page Styles - Ensure these classes are included in build */
+@layer utilities {
+  /* Colors for admin badges */
+  .bg-red-100 { background-color: #fee2e2; }
+  .bg-yellow-100 { background-color: #fef3c7; }
+  .bg-green-100 { background-color: #dcfce7; }
+  .bg-blue-100 { background-color: #dbeafe; }
+  .text-red-600 { color: #dc2626; }
+  .text-red-700 { color: #b91c1c; }
+  .text-yellow-600 { color: #ca8a04; }
+  .text-yellow-700 { color: #a16207; }
+  .text-green-600 { color: #16a34a; }
+  .text-blue-600 { color: #2563eb; }
+  
+  /* Admin layout specific */
+  .rounded-xl { border-radius: 0.75rem; }
+  .rounded-2xl { border-radius: 1rem; }
+  .shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+  
+  /* Grid columns for admin */
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  
+  /* Transform for sidebar */
+  .-translate-x-full { transform: translateX(-100%); }
+  .translate-x-0 { transform: translateX(0); }
+  .lg\:translate-x-0 { transform: translateX(0); }
+  
+  /* Admin sidebar width */
+  .w-64 { width: 16rem; }
+  .lg\:ml-64 { margin-left: 16rem; }
+  
+  /* Overflow for sidebar */
+  .overflow-y-auto { overflow-y: auto; }
+  
+  /* Min width for admin */
+  .min-w-0 { min-width: 0; }
+  
+  /* Truncate text */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Divide utilities */
+  .divide-y > :not([hidden]) ~ :not([hidden]) {
+    border-top-width: 1px;
+    border-color: var(--border);
+  }
+  .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #f3f4f6;
+  }
+  
+  /* Animation for loading */
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Disabled state */
+  .disabled\:opacity-50:disabled { opacity: 0.5; }
+  .disabled\:cursor-not-allowed:disabled { cursor: not-allowed; }
+  
+  /* Focus border transparent */
+  .focus\:border-transparent:focus { border-color: transparent; }
+  
+  /* Responsive padding */
+  .lg\:p-8 { padding: 2rem; }
+  .lg\:pt-0 { padding-top: 0; }
+  
+  /* Admin specific responsive */
+  @media (min-width: 1024px) {
+    .lg\:hidden { display: none; }
+    .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .lg\:translate-x-0 { transform: translateX(0); }
+    .lg\:ml-64 { margin-left: 16rem; }
+    .lg\:pt-0 { padding-top: 0; }
+    .lg\:p-8 { padding: 2rem; }
+  }
+  
+  /* Badge styles */
+  .rounded-full { border-radius: 9999px; }
+  
+  /* Table styles for admin */
+  .pr-12 { padding-right: 3rem; }
+  
+  /* Height for admin calc */
+  .h-\[calc\(100vh-8rem\)\] { height: calc(100vh - 8rem); }
+  
+  /* Background black/50 for overlay */
+  .bg-black\/50 { background-color: rgba(0, 0, 0, 0.5); }
+}
