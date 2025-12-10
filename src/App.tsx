@@ -29,7 +29,8 @@ import {
   JournalsPage as AdminJournalsPage,
   GalleryPage as AdminGalleryPage,
   FAQsPage,
-  SettingsPage
+  SettingsPage,
+  MediaPage
 } from './admin';
 
 // Layout wrapper for main site
@@ -80,7 +81,7 @@ export default function App() {
             <Route path="portfolios" element={<ComingSoon title="지명원 관리" />} />
             <Route path="process" element={<ComingSoon title="프로세스 관리" />} />
             <Route path="faqs" element={<FAQsPage />} />
-            <Route path="media" element={<ComingSoon title="미디어 라이브러리" />} />
+            <Route path="media" element={<MediaPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
           

@@ -14,3 +14,4 @@ export { JournalsPage } from './pages/JournalsPage';
 export { GalleryPage } from './pages/GalleryPage';
 export { FAQsPage } from './pages/FAQsPage';
 export { SettingsPage } from './pages/SettingsPage';
+export { MediaPage } from './pages/MediaPage';
